@@ -63,7 +63,7 @@ func runGetFullReq() {
 		return
 	}
 	defer resp.Body.Close() // важный пункт!
-
+	
 	respBody, err := ioutil.ReadAll(resp.Body)
 
 	fmt.Printf("testGetFullReq resp %#v\n\n\n", string(respBody))

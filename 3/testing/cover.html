@@ -55,7 +55,7 @@
 			<div id="nav">
 				<select id="files">
 				
-				<option value="file0">WebTest/main.go (85.7%)</option>
+				<option value="file0">WebTest/main.go (100.0%)</option>
 				
 				</select>
 			</div>
@@ -89,7 +89,7 @@ func GetUser(key string) (*User, error) <span class="cov8" title="1">{
         if jsonStr, ok := data[key]; ok </span><span class="cov8" title="1">{
                 user := &amp;User{}
                 err := json.Unmarshal(jsonStr, user)
-                if err != nil </span><span class="cov0" title="0">{
+                if err != nil </span><span class="cov8" title="1">{
                         return nil, fmt.Errorf("Cant decode json")
                 }</span>
                 <span class="cov8" title="1">return user, nil</span>

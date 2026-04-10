@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net"
 	"net/http"
 	"net/url"
@@ -92,7 +92,7 @@ func (srv *SearchClient) FindUsers(req SearchRequest) (*SearchResponse, error) {
 		return nil, fmt.Errorf("unknown error %s", err)
 	}
 	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 
 	switch resp.StatusCode {
 	case http.StatusUnauthorized:
@@ -118,11 +118,12 @@ func (srv *SearchClient) FindUsers(req SearchRequest) (*SearchResponse, error) {
 	}
 
 	result := SearchResponse{}
-	if len(data) == req.Limit {
+	n := len(data)
+	if n == req.Limit {
 		result.NextPage = true
-		result.Users = data[0 : len(data)-1]
+		result.Users = data[0 : n-1]
 	} else {
-		result.Users = data[0:len(data)]
+		result.Users = data[0 : n]
 	}
 
 	return &result, err

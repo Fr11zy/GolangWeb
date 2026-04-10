@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	_ "net/http/pprof"
+	"strings"
 	"time"
 )
 
@@ -16,12 +17,12 @@ type Post struct {
 }
 
 func handle(w http.ResponseWriter, req *http.Request) {
-	s := ""
+	var builder strings.Builder
 	for i := 0; i < 1000; i++ {
 		p := &Post{ID: i, Text: "new post"}
-		s += fmt.Sprintf("%#v", p)
+		builder.WriteString(fmt.Sprintf("%#v", p))
 	}
-	w.Write([]byte(s))
+	w.Write([]byte(builder.String()))
 }
 
 func main() {
